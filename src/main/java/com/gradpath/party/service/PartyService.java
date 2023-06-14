@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.gradpath.party.dao.PartyRepository;
 import com.gradpath.party.entity.Party;
+import com.gradpath.party.exception.PartyNotFoundException;
 
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class PartyService {
     }
 
     public Party getPartyById(String id) {
-        return partyRepository.findById(id).orElse(null);
+    	return partyRepository.findById(id)
+                .orElseThrow(() -> new PartyNotFoundException("Party not found with ID: " + id));
     }
 
     public Party createParty(Party party) {
@@ -34,12 +36,12 @@ public class PartyService {
         Party party = partyRepository.findById(id).orElse(null);
         if (party != null) {
             party.setPartyFirstName(updatedParty.getPartyFirstName());
+            party.setPartyMiddleName(updatedParty.getPartyMiddleName());
             party.setPartyCreationDate(updatedParty.getPartyCreationDate());
             // Update other properties as needed
-
             return partyRepository.save(party);
         } else {
-            return null;
+            throw new PartyNotFoundException("Party not found with ID: " + id);
         }
     }
 

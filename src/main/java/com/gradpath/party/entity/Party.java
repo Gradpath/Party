@@ -36,6 +36,16 @@ public class Party {
 
 	private Date partyCreationDate;
 
+	public Party(String partyId,String partyFirstName, String partyMiddleName, String partyLastName, String email, String phoneNo, Date partyCreationDate) {
+        this.partyId = partyId;
+		this.partyFirstName = partyFirstName;
+        this.partyMiddleName = partyMiddleName;
+        this.partyLastName = partyLastName;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.partyCreationDate = partyCreationDate;
+    }
+
 	public String getPartyId() {
 		return partyId;
 	}
